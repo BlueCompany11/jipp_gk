@@ -38,6 +38,8 @@ namespace jipp_gk
             //dodaje do zdarzenia gamefinished metode lambda - metoda ktorej sie nie definiuje tak jak pozostale
             //tylko jej definicja zawiera sie w kodzie innej metody
             GameFinished += () => { MessageBox.Show("Dotarles do celu"); };
+            //dodalem nowa funkcje ktora odblokowuje przycisk przy zakenczeniu gry
+            GameFinished += () => { button1.Enabled = true; };
         }
         //funkcja wywolywana gdy okno aplikacji jest aktywne i jest wcisniety jakis przycisk
         //wewnatrz metody sprawdzam jaki to przycisk zostal wcisniety
@@ -95,7 +97,17 @@ namespace jipp_gk
             {
                 GameFinished();
             }
-                
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // losowe umieszczenie celu
+            Random random = new Random();
+            dxDest = random.Next(destWidth, tableLayoutPanel1.Width - destWidth);
+            dyDest = random.Next(destWidth, tableLayoutPanel1.Height - destWidth);
+            Draw();
+            this.Focus();
+            button1.Enabled = false;
         }
     }
 }
